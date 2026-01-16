@@ -8,7 +8,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     `maven-publish`
     signing
-    id("tech.yanand.maven-central-publish") version "1.2.0"
+    id("tech.yanand.maven-central-publish") version "1.3.0"
 }
 
 group = "io.github.dayanfcosta"
@@ -100,7 +100,6 @@ publishing {
 }
 
 mavenCentral {
-    repoDir = layout.buildDirectory.dir("staging-deploy")
     authToken = System.getenv("MAVEN_CENTRAL_TOKEN")
     publishingType = "AUTOMATIC"
 }

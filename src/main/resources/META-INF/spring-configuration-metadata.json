@@ -1,0 +1,185 @@
+{
+  "groups": [
+    {
+      "name": "gremlin",
+      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "description": "Configuration properties for Apache TinkerPop Gremlin connectivity."
+    },
+    {
+      "name": "gremlin.cluster",
+      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ClusterConfig",
+      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "description": "Cluster mode configuration for connecting to multiple Gremlin Server hosts with load balancing."
+    },
+    {
+      "name": "gremlin.connection-pool",
+      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ConnectionPoolConfig",
+      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "description": "Connection pool configuration for Gremlin driver."
+    }
+  ],
+  "properties": [
+    {
+      "name": "gremlin.host",
+      "type": "java.lang.String",
+      "description": "Gremlin Server host address for simple single-host mode. Mutually exclusive with 'cluster' and 'writer/readers' configurations."
+    },
+    {
+      "name": "gremlin.port",
+      "type": "java.lang.Integer",
+      "description": "Port that the Gremlin Server is listening on.",
+      "defaultValue": 8182
+    },
+    {
+      "name": "gremlin.cluster.hosts",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of Gremlin Server host addresses for cluster mode. Requests are load-balanced across all hosts using round-robin strategy."
+    },
+    {
+      "name": "gremlin.writer",
+      "type": "java.lang.String",
+      "description": "Gremlin Server host address dedicated for write operations in writer/reader mode. Requires 'readers' to also be configured."
+    },
+    {
+      "name": "gremlin.readers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of Gremlin Server host addresses dedicated for read operations in writer/reader mode. Requests are load-balanced across all readers. Requires 'writer' to also be configured."
+    },
+    {
+      "name": "gremlin.username",
+      "type": "java.lang.String",
+      "description": "Username for authentication to Gremlin Server. Must be used together with 'password'."
+    },
+    {
+      "name": "gremlin.password",
+      "type": "java.lang.String",
+      "description": "Password for authentication to Gremlin Server. Must be used together with 'username'."
+    },
+    {
+      "name": "gremlin.enable-ssl",
+      "type": "java.lang.Boolean",
+      "description": "Enable SSL/TLS connectivity. The Gremlin Server must be configured with SSL enabled.",
+      "defaultValue": false
+    },
+    {
+      "name": "gremlin.serializer",
+      "type": "org.apache.tinkerpop.gremlin.util.ser.Serializers",
+      "description": "Message serializer to use for communication with Gremlin Server. Determines the format of data sent and received.",
+      "defaultValue": "GRAPHBINARY_V1"
+    },
+    {
+      "name": "gremlin.connection-timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait when establishing a connection to the Gremlin Server.",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "gremlin.request-timeout",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait for a request to complete.",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "gremlin.keep-alive-interval",
+      "type": "java.time.Duration",
+      "description": "Time to wait on an idle connection before sending a keep-alive request. If not set, keep-alive is disabled."
+    },
+    {
+      "name": "gremlin.channelizer",
+      "type": "java.lang.Class<org.apache.tinkerpop.gremlin.driver.Channelizer>",
+      "description": "Channelizer implementation to use for the connection. Determines the transport protocol (WebSocket, HTTP, etc.).",
+      "defaultValue": "org.apache.tinkerpop.gremlin.driver.Channelizer$WebSocketChannelizer"
+    },
+    {
+      "name": "gremlin.connection-pool.min-connections-per-host",
+      "type": "java.lang.Integer",
+      "description": "Minimum size of the connection pool. Connections are created to this size when the client starts.",
+      "defaultValue": 2
+    },
+    {
+      "name": "gremlin.connection-pool.max-connections-per-host",
+      "type": "java.lang.Integer",
+      "description": "Maximum size that the connection pool can grow to.",
+      "defaultValue": 8
+    },
+    {
+      "name": "gremlin.connection-pool.max-simultaneous-usage-per-connection",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of times a connection can be borrowed from the pool simultaneously. Setting too high may cause request queuing; too low forces unnecessary waits.",
+      "defaultValue": 16
+    },
+    {
+      "name": "gremlin.connection-pool.max-in-process-per-connection",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of in-flight requests allowed on a single connection. Indicates connection busyness.",
+      "defaultValue": 4
+    },
+    {
+      "name": "gremlin.connection-pool.max-wait-for-connection",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait for a connection to be borrowed from the pool.",
+      "defaultValue": "3s"
+    },
+    {
+      "name": "gremlin.connection-pool.max-wait-for-close",
+      "type": "java.time.Duration",
+      "description": "Maximum time to wait for a connection to close gracefully before timing out.",
+      "defaultValue": "5s"
+    },
+    {
+      "name": "gremlin.connection-pool.max-content-length",
+      "type": "java.lang.Integer",
+      "description": "Maximum size in bytes of any request sent to the server.",
+      "defaultValue": 65536
+    },
+    {
+      "name": "gremlin.connection-pool.result-iteration-batch-size",
+      "type": "java.lang.Integer",
+      "description": "Number of results to return per batch from the server. Overrides the server-side setting.",
+      "defaultValue": 64
+    },
+    {
+      "name": "gremlin.connection-pool.reconnect-interval",
+      "type": "java.time.Duration",
+      "description": "Time to wait between retries when attempting to reconnect to a dead host.",
+      "defaultValue": "1s"
+    }
+  ],
+  "hints": [
+    {
+      "name": "gremlin.serializer",
+      "values": [
+        {
+          "value": "GRAPHBINARY_V1",
+          "description": "GraphBinary format version 1 (recommended, most efficient)."
+        },
+        {
+          "value": "GRAPHSON_V3",
+          "description": "GraphSON format version 3 (JSON-based, human-readable)."
+        },
+        {
+          "value": "GRAPHSON_V2",
+          "description": "GraphSON format version 2 (legacy JSON format)."
+        },
+        {
+          "value": "GRAPHSON_V1",
+          "description": "GraphSON format version 1 (legacy JSON format)."
+        }
+      ]
+    },
+    {
+      "name": "gremlin.channelizer",
+      "values": [
+        {
+          "value": "org.apache.tinkerpop.gremlin.driver.Channelizer$WebSocketChannelizer",
+          "description": "WebSocket transport protocol (default)."
+        },
+        {
+          "value": "org.apache.tinkerpop.gremlin.driver.Channelizer$HttpChannelizer",
+          "description": "HTTP transport protocol."
+        }
+      ]
+    }
+  ]
+}

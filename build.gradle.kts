@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.dayanfcosta"
-version = "1.0.0"
+version = "1.0.1-SNAPSHOT"
 description = "Spring Boot starter for Apache TinkerPop Gremlin"
 
 java {

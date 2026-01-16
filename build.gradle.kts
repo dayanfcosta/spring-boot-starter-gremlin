@@ -8,6 +8,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     `maven-publish`
     signing
+    id("tech.yanand.maven-central-publish") version "1.2.0"
 }
 
 group = "io.github.dayanfcosta"
@@ -96,21 +97,12 @@ publishing {
             }
         }
     }
+}
 
-    repositories {
-        maven {
-            name = "OSSRH"
-            url = if (version.toString().endsWith("SNAPSHOT")) {
-                uri("https://central.sonatype.com/repository/maven-snapshots/")
-            } else {
-                uri("https://central.sonatype.com/api/v1/publisher/upload")
-            }
-            credentials {
-                username = System.getenv("MAVEN_USERNAME") ?: findProperty("ossrhUsername")?.toString()
-                password = System.getenv("MAVEN_PASSWORD") ?: findProperty("ossrhPassword")?.toString()
-            }
-        }
-    }
+mavenCentral {
+    repoDir = layout.buildDirectory.dir("staging-deploy")
+    authToken = System.getenv("MAVEN_CENTRAL_TOKEN")
+    publishingType = "AUTOMATIC"
 }
 
 signing {

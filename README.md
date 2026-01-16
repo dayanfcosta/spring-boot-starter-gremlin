@@ -24,7 +24,7 @@ A Spring Boot starter that provides auto-configuration for Apache TinkerPop Grem
 
 ```kotlin
 dependencies {
-    implementation("com.github.dayanfcosta:spring-boot-starter-gremlin:0.0.1-SNAPSHOT")
+    implementation("io.github.dayanfcosta:spring-boot-starter-gremlin:0.0.1-SNAPSHOT")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dayanfcosta:spring-boot-starter-gremlin:0.0.1-SNAPSHOT'
+    implementation 'io.github.dayanfcosta:spring-boot-starter-gremlin:0.0.1-SNAPSHOT'
 }
 ```
 
@@ -40,7 +40,7 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>com.github.dayanfcosta</groupId>
+    <groupId>io.github.dayanfcosta</groupId>
     <artifactId>spring-boot-starter-gremlin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>

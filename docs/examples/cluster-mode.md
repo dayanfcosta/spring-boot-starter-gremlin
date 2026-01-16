@@ -216,4 +216,4 @@ gremlin:
 
 ## Testing
 
-See [ClusterModeConfigurationIntegrationTest](../../src/test/kotlin/com/github/dayanfcosta/gremlin/autoconfigure/ClusterModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers with multiple containers.
+See [ClusterModeConfigurationIntegrationTest](../../src/test/kotlin/io/github/dayanfcosta/gremlin/autoconfigure/ClusterModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers with multiple containers.

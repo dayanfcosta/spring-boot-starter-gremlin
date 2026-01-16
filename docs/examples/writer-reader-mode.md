@@ -335,4 +335,4 @@ gremlin:
 
 ## Testing
 
-See [WriterReadModeConfigurationIntegrationTest](../../src/test/kotlin/com/github/dayanfcosta/gremlin/autoconfigure/WriterReadModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers with separate writer and reader containers.
+See [WriterReadModeConfigurationIntegrationTest](../../src/test/kotlin/io/github/dayanfcosta/gremlin/autoconfigure/WriterReadModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers with separate writer and reader containers.

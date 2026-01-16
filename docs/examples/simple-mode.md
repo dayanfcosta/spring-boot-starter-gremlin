@@ -266,4 +266,4 @@ class PersonController(
 
 ## Testing
 
-See [SimpleModeConfigurationIntegrationTest](../../src/test/kotlin/com/github/dayanfcosta/gremlin/autoconfigure/SimpleModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers.
+See [SimpleModeConfigurationIntegrationTest](../../src/test/kotlin/io/github/dayanfcosta/gremlin/autoconfigure/SimpleModeConfigurationIntegrationTest.kt) for integration testing examples using Testcontainers.

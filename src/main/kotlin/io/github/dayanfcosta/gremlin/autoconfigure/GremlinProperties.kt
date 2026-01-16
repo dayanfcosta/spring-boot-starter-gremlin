@@ -1,4 +1,4 @@
-package com.github.dayanfcosta.gremlin.autoconfigure
+package io.github.dayanfcosta.gremlin.autoconfigure
 
 import jakarta.annotation.PostConstruct
 import org.apache.tinkerpop.gremlin.driver.Channelizer

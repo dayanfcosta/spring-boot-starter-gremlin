@@ -2,20 +2,20 @@
   "groups": [
     {
       "name": "gremlin",
-      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
-      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "type": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "sourceType": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
       "description": "Configuration properties for Apache TinkerPop Gremlin connectivity."
     },
     {
       "name": "gremlin.cluster",
-      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ClusterConfig",
-      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "type": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ClusterConfig",
+      "sourceType": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
       "description": "Cluster mode configuration for connecting to multiple Gremlin Server hosts with load balancing."
     },
     {
       "name": "gremlin.connection-pool",
-      "type": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ConnectionPoolConfig",
-      "sourceType": "com.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
+      "type": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties$ConnectionPoolConfig",
+      "sourceType": "io.github.dayanfcosta.gremlin.autoconfigure.GremlinProperties",
       "description": "Connection pool configuration for Gremlin driver."
     }
   ],

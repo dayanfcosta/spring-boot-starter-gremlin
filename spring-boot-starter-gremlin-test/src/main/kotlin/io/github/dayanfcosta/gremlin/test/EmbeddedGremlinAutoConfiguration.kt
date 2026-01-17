@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 
 /**
- * Auto-configuration for embedded TinkerGraph.
+ * Autoconfiguration for embedded TinkerGraph.
  *
  * Provides an in-memory graph implementation for fast unit testing
  * without requiring Docker or external services.

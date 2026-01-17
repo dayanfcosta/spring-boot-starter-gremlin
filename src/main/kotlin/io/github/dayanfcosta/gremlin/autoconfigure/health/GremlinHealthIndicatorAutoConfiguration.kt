@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 /**
- * Auto-configuration for Gremlin health indicator.
+ * Autoconfiguration for Gremlin health indicator.
  *
  * Creates health indicators for each connection mode:
  * - Simple mode: single "gremlin" health indicator

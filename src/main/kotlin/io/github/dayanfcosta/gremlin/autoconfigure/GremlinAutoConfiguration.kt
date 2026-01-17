@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 /**
- * Auto-configuration for Apache TinkerPop Gremlin connections.
+ * Autoconfiguration for Apache TinkerPop Gremlin connections.
  *
  * This configuration automatically creates the necessary beans for connecting to
  * Gremlin-compatible graph databases based on the application properties.

@@ -14,12 +14,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 
 /**
- * Auto-configuration that creates Gremlin beans from [GremlinConnectionDetails].
+ * Autoconfiguration that creates Gremlin beans from [GremlinConnectionDetails].
  *
  * This configuration is activated when a [GremlinConnectionDetails] bean
  * is present (typically created by `@ServiceConnection` with Testcontainers).
  *
- * Takes precedence over both the main starter's auto-configuration and
+ * Takes precedence over both the main starter's autoconfiguration and
  * the embedded TinkerGraph configuration, ensuring that when a container
  * is used, connections go to the container instead of an embedded graph.
  *

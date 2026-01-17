@@ -10,6 +10,8 @@ A Spring Boot starter that provides auto-configuration for Apache TinkerPop Grem
 - Connection pool management
 - SSL/TLS support
 - Authentication support
+- Spring Boot Actuator health indicator
+- Test utilities with embedded TinkerGraph and Testcontainers support
 - Compatible with Amazon Neptune, Azure Cosmos DB, JanusGraph, and other Gremlin-compatible databases
 
 ## Requirements
@@ -184,6 +186,133 @@ gremlin:
   port: 8182
   serializer: GRAPHBINARY_V1
 ```
+
+## Health Indicator
+
+When Spring Boot Actuator is on the classpath, a health indicator is automatically registered.
+
+```yaml
+# Optional configuration
+gremlin:
+  health:
+    enabled: true        # default: true
+    timeout: 5000        # milliseconds, default: 5000
+```
+
+Health endpoint response:
+
+```json
+{
+  "status": "UP",
+  "components": {
+    "gremlin": {
+      "status": "UP",
+      "details": {
+        "host": "localhost",
+        "port": 8182
+      }
+    }
+  }
+}
+```
+
+## Testing
+
+Add the test utilities module to your project:
+
+### Gradle (Kotlin DSL)
+
+```kotlin
+dependencies {
+    testImplementation("io.github.dayanfcosta:spring-boot-starter-gremlin-test:1.0.0")
+}
+```
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>io.github.dayanfcosta</groupId>
+    <artifactId>spring-boot-starter-gremlin-test</artifactId>
+    <version>1.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+### Embedded TinkerGraph (No Docker Required)
+
+Use `@GremlinTest` for fast, in-memory testing with TinkerGraph:
+
+```kotlin
+@GremlinTest
+class PersonRepositoryTest {
+
+    @Autowired
+    lateinit var g: GraphTraversalSource
+
+    @AfterEach
+    fun cleanup() {
+        GremlinTestUtils.clearGraph(g)
+    }
+
+    @Test
+    fun `should create and find person`() {
+        // Given
+        val vertex = GremlinTestUtils.createVertex(g, "person",
+            "name" to "John",
+            "age" to 30
+        )
+
+        // When
+        val found = GremlinTestUtils.findVertex(g, "person", "name" to "John")
+
+        // Then
+        assertNotNull(found)
+        assertEquals("John", GremlinTestUtils.getProperty<String>(found, "name"))
+    }
+}
+```
+
+### Testcontainers with @ServiceConnection
+
+For integration tests with a real Gremlin Server:
+
+```kotlin
+@SpringBootTest
+@Testcontainers
+class GremlinIntegrationTest {
+
+    companion object {
+        @Container
+        @ServiceConnection
+        val gremlin = GremlinServerContainer()
+    }
+
+    @Autowired
+    lateinit var g: GraphTraversalSource
+
+    @Test
+    fun `should connect to containerized gremlin server`() {
+        g.addV("person").property("name", "John").next()
+
+        val count = g.V().hasLabel("person").count().next()
+        assertEquals(1, count)
+    }
+}
+```
+
+### Test Utilities
+
+| Method | Description |
+|--------|-------------|
+| `GremlinTestUtils.clearGraph(g)` | Remove all vertices and edges |
+| `GremlinTestUtils.createVertex(g, label, props...)` | Create a vertex with properties |
+| `GremlinTestUtils.createEdge(g, from, label, to, props...)` | Create an edge between vertices |
+| `GremlinTestUtils.findVertex(g, label, props...)` | Find vertex by label and properties |
+| `GremlinTestUtils.vertexExists(g, label, props...)` | Check if vertex exists |
+| `GremlinTestUtils.countVertices(g)` / `countVertices(g, label)` | Count vertices |
+| `GremlinTestUtils.countEdges(g)` / `countEdges(g, label)` | Count edges |
+| `GremlinTestUtils.getProperty<T>(vertex, key)` | Get property value from vertex |
 
 ## Provided Beans
 

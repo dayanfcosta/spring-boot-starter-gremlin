@@ -1,19 +1,17 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.5.9"
+    id("org.springframework.boot") version "3.5.9" apply false
     id("io.spring.dependency-management") version "1.1.7"
     `maven-publish`
     signing
-    id("tech.yanand.maven-central-publish") version "1.3.0"
 }
 
 group = "io.github.dayanfcosta"
-version = "1.0.1-SNAPSHOT"
-description = "Spring Boot starter for Apache TinkerPop Gremlin"
+version = rootProject.version
+description = "Test utilities for Spring Boot Gremlin Starter"
 
 java {
     toolchain {
@@ -23,30 +21,40 @@ java {
     withJavadocJar()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    // Main starter dependency
+    api(rootProject)
+
+    // Apache TinkerPop Gremlin (needed for compilation)
+    api("org.apache.tinkerpop:gremlin-driver:3.8.0")
+
+    // Spring Boot Test
+    api("org.springframework.boot:spring-boot-starter-test")
+    api("org.springframework.boot:spring-boot-testcontainers")
+
+    // TinkerPop - TinkerGraph for embedded testing
+    api("org.apache.tinkerpop:tinkergraph-gremlin:3.8.0")
+
+    // Testcontainers
+    api("org.testcontainers:testcontainers")
+    api("org.testcontainers:junit-jupiter")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    api("org.jetbrains.kotlin:kotlin-reflect")
+    api("org.jetbrains.kotlin:kotlin-test-junit5")
 
-    // Apache TinkerPop Gremlin
-    implementation("org.apache.tinkerpop:gremlin-driver:3.8.0")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    // Test dependencies for this module
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    testImplementation("org.testcontainers:testcontainers")
-    testImplementation("org.testcontainers:junit-jupiter")
-
-    compileOnly("org.springframework.boot:spring-boot-actuator-autoconfigure")
-    testImplementation("org.springframework.boot:spring-boot-actuator-autoconfigure")
-    testImplementation("io.mockk:mockk:1.13.13")
 }
 
 kotlin {
@@ -60,10 +68,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.named<BootJar>("bootJar") {
-    enabled = false
-}
-
 tasks.named<Jar>("jar") {
     enabled = true
 }
@@ -74,8 +78,8 @@ publishing {
             from(components["java"])
 
             pom {
-                name = "Spring Boot Starter Gremlin"
-                description = "Spring Boot starter for Apache TinkerPop Gremlin graph database connectivity"
+                name = "Spring Boot Starter Gremlin Test"
+                description = "Test utilities for Spring Boot Gremlin Starter - includes TinkerGraph embedded support and Testcontainers integration"
                 url = "https://github.com/dayanfcosta/spring-boot-starter-gremlin"
 
                 licenses {
@@ -101,11 +105,6 @@ publishing {
             }
         }
     }
-}
-
-mavenCentral {
-    authToken = System.getenv("MAVEN_CENTRAL_TOKEN")
-    publishingType = "AUTOMATIC"
 }
 
 signing {

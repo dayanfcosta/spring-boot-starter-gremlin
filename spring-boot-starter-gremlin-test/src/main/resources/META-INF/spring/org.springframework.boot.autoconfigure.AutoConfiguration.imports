@@ -1,0 +1,2 @@
+io.github.dayanfcosta.gremlin.test.EmbeddedGremlinAutoConfiguration
+io.github.dayanfcosta.gremlin.test.GremlinConnectionDetailsAutoConfiguration

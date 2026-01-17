@@ -1,0 +1,3 @@
+org.springframework.boot.testcontainers.service.connection.ContainerConnectionDetailsFactory=\
+  io.github.dayanfcosta.gremlin.test.GremlinContainerConnectionDetailsFactory,\
+  io.github.dayanfcosta.gremlin.test.GenericGremlinContainerConnectionDetailsFactory

@@ -43,6 +43,10 @@ dependencies {
 
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
+
+    compileOnly("org.springframework.boot:spring-boot-actuator-autoconfigure")
+    testImplementation("org.springframework.boot:spring-boot-actuator-autoconfigure")
+    testImplementation("io.mockk:mockk:1.13.13")
 }
 
 kotlin {

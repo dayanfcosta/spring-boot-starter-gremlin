@@ -4,6 +4,22 @@ import org.apache.tinkerpop.gremlin.driver.Cluster
 import org.apache.tinkerpop.gremlin.driver.RequestInterceptor
 import org.springframework.beans.factory.ObjectProvider
 
+/**
+ * Extension function that applies common configuration to a [Cluster.Builder].
+ *
+ * This function configures the following settings from [GremlinProperties]:
+ * - Authentication credentials (username/password)
+ * - SSL/TLS enablement
+ * - Serializer configuration
+ * - Connection pool settings (min/max connections, timeouts, etc.)
+ * - Keep-alive interval
+ * - Channelizer (WebSocket or HTTP)
+ * - Optional request interceptor for custom request modification
+ *
+ * @param properties The Gremlin configuration properties
+ * @param requestInterceptor Optional request interceptor provider for custom request handling
+ * @return The configured [Cluster.Builder] instance for method chaining
+ */
 internal fun Cluster.Builder.applyCommonConfiguration(
     properties: GremlinProperties,
     requestInterceptor: ObjectProvider<RequestInterceptor>

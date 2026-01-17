@@ -17,11 +17,47 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+/**
+ * Auto-configuration for Apache TinkerPop Gremlin connections.
+ *
+ * This configuration automatically creates the necessary beans for connecting to
+ * Gremlin-compatible graph databases based on the application properties.
+ *
+ * Three connection modes are supported (mutually exclusive):
+ *
+ * - **Simple mode** ([SimpleModeConfiguration]): Single host connection.
+ *   Activated when `gremlin.host` is configured.
+ *
+ * - **Cluster mode** ([ClusterModeConfiguration]): Multiple hosts with load balancing.
+ *   Activated when `gremlin.cluster.hosts` is configured.
+ *
+ * - **Writer/Reader mode** ([WriterReadModeConfiguration]): Separate write and read endpoints.
+ *   Activated when `gremlin.writer` is configured. Creates qualified beans for writer and reader.
+ *
+ * Each mode provides the following beans:
+ * - [Cluster]: The Gremlin driver cluster instance
+ * - [Client]: Connected client for executing queries
+ * - [GraphTraversalSource]: Traversal source for graph operations
+ *
+ * For Writer/Reader mode, beans are qualified with `@Qualifier("gremlinWriter")` and
+ * `@Qualifier("gremlinReader")` to distinguish between write and read connections.
+ *
+ * @see GremlinProperties
+ * @see SimpleModeConfiguration
+ * @see ClusterModeConfiguration
+ * @see WriterReadModeConfiguration
+ */
 @AutoConfiguration
 @ConditionalOnClass(Cluster::class)
 @EnableConfigurationProperties(GremlinProperties::class)
 class GremlinAutoConfiguration {
 
+    /**
+     * Configuration for simple mode with a single Gremlin server host.
+     *
+     * Activated when `gremlin.host` property is configured.
+     * Creates a single [Cluster], [Client], and [GraphTraversalSource] bean.
+     */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnProperty(prefix = "gremlin", name = ["host"])
     class SimpleModeConfiguration(
@@ -54,6 +90,13 @@ class GremlinAutoConfiguration {
         fun gremlinClusterLifecycle(cluster: Cluster): ClusterLifecycle = ClusterLifecycle(cluster)
     }
 
+    /**
+     * Configuration for cluster mode with multiple Gremlin server hosts.
+     *
+     * Activated when `gremlin.cluster.hosts` property is configured.
+     * Creates a single [Cluster] with multiple contact points for load balancing,
+     * along with [Client] and [GraphTraversalSource] beans.
+     */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnProperty(prefix = "gremlin.cluster", name = ["hosts[0]"])
     class ClusterModeConfiguration(
@@ -85,6 +128,17 @@ class GremlinAutoConfiguration {
         fun gremlinClusterLifecycle(cluster: Cluster): ClusterLifecycle = ClusterLifecycle(cluster)
     }
 
+    /**
+     * Configuration for writer/reader mode with separate write and read endpoints.
+     *
+     * Activated when `gremlin.writer` property is configured.
+     * Creates separate [Cluster], [Client], and [GraphTraversalSource] beans for
+     * writer and reader connections, qualified with `@Qualifier("gremlinWriter")`
+     * and `@Qualifier("gremlinReader")` respectively.
+     *
+     * This mode is useful for graph databases that support read replicas,
+     * such as Amazon Neptune or Azure Cosmos DB.
+     */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnProperty(prefix = "gremlin", name = ["writer"])
     class WriterReadModeConfiguration(
@@ -151,6 +205,14 @@ class GremlinAutoConfiguration {
             ClusterLifecycle(cluster)
     }
 
+    /**
+     * Lifecycle manager for Gremlin [Cluster] instances.
+     *
+     * Implements [DisposableBean] to ensure proper cleanup of cluster connections
+     * when the Spring application context is closed.
+     *
+     * @property cluster The Gremlin cluster instance to manage
+     */
     class ClusterLifecycle(
         private val cluster: Cluster
     ) : DisposableBean {

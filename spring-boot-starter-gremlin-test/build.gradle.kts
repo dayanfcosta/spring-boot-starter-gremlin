@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.dayanfcosta"
-version = "1.0.0-SNAPSHOT"
+version = rootProject.version
 description = "Test utilities for Spring Boot Gremlin Starter"
 
 java {

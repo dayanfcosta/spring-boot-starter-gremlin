@@ -11,6 +11,7 @@ A Spring Boot starter that provides auto-configuration for Apache TinkerPop Grem
 - SSL/TLS support
 - Authentication support
 - Spring Boot Actuator health indicator
+- Query logging with slow query detection
 - Test utilities with embedded TinkerGraph and Testcontainers support
 - Compatible with Amazon Neptune, Azure Cosmos DB, JanusGraph, and other Gremlin-compatible databases
 
@@ -215,6 +216,55 @@ Health endpoint response:
   }
 }
 ```
+
+## Query Logging
+
+Enable query logging to debug and monitor Gremlin queries with execution timing.
+
+**Requirements:** Add `spring-boot-starter-aop` to your project.
+
+### Gradle (Kotlin DSL)
+
+```kotlin
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+}
+```
+
+### Configuration
+
+```yaml
+gremlin:
+  logging:
+    enabled: true
+    slow-query-threshold: 1000ms  # default: 1s
+    include-bytecode: false       # default: false
+
+# Enable DEBUG logging for query output
+logging:
+  level:
+    io.github.dayanfcosta.gremlin.query: DEBUG
+```
+
+### Log Output Examples
+
+Normal queries (DEBUG level):
+```
+DEBUG - Gremlin Query: g.V(), hasLabel(person), count() | Time: 45ms
+```
+
+Slow queries (WARN level, exceeds threshold):
+```
+WARN - Slow Gremlin Query: g.V(), has(name, John), out(knows) | Time: 1523ms (threshold: 1000ms)
+```
+
+### Configuration Options
+
+| Property | Description | Default |
+|----------|-------------|---------|
+| `gremlin.logging.enabled` | Enable query logging | `false` |
+| `gremlin.logging.slow-query-threshold` | Threshold for slow query warnings | `1s` |
+| `gremlin.logging.include-bytecode` | Include raw bytecode in logs | `false` |
 
 ## Testing
 

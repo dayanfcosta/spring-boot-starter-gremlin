@@ -47,6 +47,10 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-actuator-autoconfigure")
     testImplementation("org.springframework.boot:spring-boot-actuator-autoconfigure")
     testImplementation("io.mockk:mockk:1.13.13")
+
+    // AOP for query logging (optional - users must add spring-boot-starter-aop to enable)
+    compileOnly("org.springframework.boot:spring-boot-starter-aop")
+    testImplementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 kotlin {

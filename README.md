@@ -27,7 +27,7 @@ A Spring Boot starter that provides auto-configuration for Apache TinkerPop Grem
 
 ```kotlin
 dependencies {
-    implementation("io.github.dayanfcosta:spring-boot-starter-gremlin:1.0.0")
+    implementation("io.github.dayanfcosta:spring-boot-starter-gremlin:1.1.0")
 }
 ```
 
@@ -35,7 +35,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'io.github.dayanfcosta:spring-boot-starter-gremlin:1.0.0'
+    implementation 'io.github.dayanfcosta:spring-boot-starter-gremlin:1.1.0'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>io.github.dayanfcosta</groupId>
     <artifactId>spring-boot-starter-gremlin</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -274,7 +274,7 @@ Add the test utilities module to your project:
 
 ```kotlin
 dependencies {
-    testImplementation("io.github.dayanfcosta:spring-boot-starter-gremlin-test:1.0.0")
+    testImplementation("io.github.dayanfcosta:spring-boot-starter-gremlin-test:1.1.0")
 }
 ```
 
@@ -284,7 +284,7 @@ dependencies {
 <dependency>
     <groupId>io.github.dayanfcosta</groupId>
     <artifactId>spring-boot-starter-gremlin-test</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <scope>test</scope>
 </dependency>
 ```

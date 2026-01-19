@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     `maven-publish`
     signing
+    id("tech.yanand.maven-central-publish") version "1.3.0"
 }
 
 group = "io.github.dayanfcosta"
@@ -120,4 +121,9 @@ signing {
 
 tasks.withType<Sign>().configureEach {
     onlyIf { !version.toString().endsWith("SNAPSHOT") }
+}
+
+mavenCentral {
+    authToken = System.getenv("MAVEN_CENTRAL_TOKEN")
+    publishingType = "AUTOMATIC"
 }

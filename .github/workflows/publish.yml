@@ -31,9 +31,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Publish to Maven Central
+      - name: Publish all modules to Maven Central
         env:
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: ./gradlew publishToMavenCentral
+        run: ./gradlew publishToMavenCentral --no-configuration-cache

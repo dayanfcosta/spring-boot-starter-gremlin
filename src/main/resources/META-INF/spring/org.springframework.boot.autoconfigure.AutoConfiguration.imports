@@ -1,2 +1,3 @@
 io.github.dayanfcosta.gremlin.autoconfigure.GremlinAutoConfiguration
 io.github.dayanfcosta.gremlin.autoconfigure.health.GremlinHealthIndicatorAutoConfiguration
+io.github.dayanfcosta.gremlin.autoconfigure.logging.GremlinQueryLoggingAutoConfiguration
